@@ -13,6 +13,7 @@ const groceriesDb = JSON.parse(localStorage.getItem("groceriesDb"))
   ? JSON.parse(localStorage.getItem("groceriesDb"))
   : [];
 
+// console.log(groceriesDb);
 //get Groceries Preview from db
 
 const groceryToPreview = JSON.parse(localStorage.getItem("ggroceryToPreview"))
@@ -68,9 +69,9 @@ function paintDom() {
     groceriesDb.forEach((groceryItem) => {
       groceriesContainer.innerHTML += `
     <div
-            class="group flex justify-between py-3 px-2 bg-slate-50 hover:bg-slate-200 rounded-lg"
+            class="group flex gap-4 justify-between py-3 px-2 bg-slate-50 hover:bg-slate-200 rounded-lg"
           >
-            <button onclick="handleGroceryPreview('${groceryItem.id}')">${groceryItem.item}</button>
+            <button onclick="handleGroceryPreview('${groceryItem.id}')"  class="block flex-1 text-left">${groceryItem.item}</button>
             <section class="gap-2 hidden group-hover:flex">
               <button>
                 <svg
@@ -117,12 +118,11 @@ function deleteGrocery(id) {
 }
 
 function handleGroceryPreview(num) {
-  // groceryToPreview.push(groceriesDb)
-  newGroceryToPreview = groceriesDb.filter(
+  const newGroceryToPreview = groceriesDb.filter(
     (groceryItem) => groceryItem.id === num
   );
   groceryToPreview.length = 0;
-  groceryToPreview.push(newGroceryToPreview);
+  groceryToPreview.push(...newGroceryToPreview);
   localStorage.setItem("groceryToPreview", JSON.stringify(groceryToPreview));
   window.location.href = "preview.html";
 }
